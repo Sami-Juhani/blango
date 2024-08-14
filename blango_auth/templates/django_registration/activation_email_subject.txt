@@ -1,0 +1,1 @@
+A user account has been registered with {{ user.email }}. Activate your Blango account! You have {{ expiration_days }} days!

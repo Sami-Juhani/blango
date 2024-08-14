@@ -12,6 +12,8 @@ class Dev(Configuration):
     CSRF_COOKIE_SAMESITE = 'None'
     SESSION_COOKIE_SAMESITE = 'None'
 
+    ACCOUNT_ACTIVATION_DAYS = 7
+
     """
     Django settings for blango project.
 
@@ -69,6 +71,7 @@ class Dev(Configuration):
     },
 }
 
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
