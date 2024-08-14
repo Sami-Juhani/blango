@@ -9,8 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def index(request):
-    posts = Post.objects.all()
-    logger.debug("Got %d posts", len(posts))
+    posts = Post.objects.filter(published_at__lte=timezone.now())
     return render(request, "blog/index.html", {"posts": posts})
 
 
@@ -25,10 +24,7 @@ def post_detail(request, slug):
                 comment = comment_form.save(commit=False)
                 comment.content_object = post
                 comment.creator = request.user
-                comment.save()
-                logger.info(
-                  "Created comment on Post %d for user %s", post.pk, request.user
-                )                 
+                comment.save()            
                 return redirect(request.path_info)
         else:
             comment_form = CommentForm()
