@@ -2,6 +2,7 @@ import os
 from configurations import Configuration
 from configurations import values
 import dj_database_url
+from datetime import timedelta
 
 class Dev(Configuration):
     X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
@@ -21,6 +22,11 @@ class Dev(Configuration):
     SITE_ID = 1
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
+    
+    SIMPLE_JWT = {
+        "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+        "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    }
 
     """
     Django settings for blango project.
@@ -122,6 +128,7 @@ class Dev(Configuration):
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"
