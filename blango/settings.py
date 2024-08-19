@@ -18,6 +18,10 @@ class Dev(Configuration):
     ACCOUNT_USERNAME_REQUIRED = False
     ACCOUNT_AUTHENTICATION_METHOD = "email"
 
+    SITE_ID = 1
+    CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+    CRISPY_TEMPLATE_PACK = "bootstrap5"
+
     """
     Django settings for blango project.
 
@@ -109,6 +113,7 @@ class Dev(Configuration):
         "allauth.socialaccount.providers.google",
         "rest_framework",
         "rest_framework.authtoken",
+        "drf_yasg"
     ]
 
     REST_FRAMEWORK = {
@@ -120,11 +125,14 @@ class Dev(Configuration):
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"
     ],
-}
+    }
 
-    SITE_ID = 1
-    CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-    CRISPY_TEMPLATE_PACK = "bootstrap5"
+    SWAGGER_SETTINGS = {
+        "SECURITY_DEFINITIONS": {
+            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+            "Basic": {"type": "basic"},
+        }
+    }
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
