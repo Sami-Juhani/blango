@@ -1,8 +1,39 @@
-console.time('myTimer')
-console.count('counter1')
-console.log('A normal log message')
-console.warn('Warning: something bad might happen')
-console.error('Something bad did happen!')
-console.count('counter1')
-console.log('All the things above took this long to happen:')
-console.timeEnd('myTimer')
+
+const lazyAdd = function (a, b) {
+  const doAdd = (resolve, reject) => {
+    if (typeof a !== "number" || typeof b !== "number") {
+      reject("a and b must both be numbers")
+    } else {
+      const sum = a + b
+      resolve(sum)
+    }
+  }
+
+  return new Promise(doAdd)
+}
+
+function resolvedCallback(data) {
+  console.log('Resolved with data ' +  data)
+}
+
+function rejectedCallback(message) {
+  console.log('Rejected with message ' + message)
+}
+
+const lazyAdd = function (a, b) {
+  const doAdd = (resolve, reject) => {
+    if (typeof a !== "number" || typeof b !== "number") {
+      reject("a and b must both be numbers")
+    } else {
+      const sum = a + b
+      resolve(sum)
+    }
+  }
+
+  return new Promise(doAdd)
+}
+
+const p = lazyAdd(3, 4)
+p.then(resolvedCallback, rejectedCallback)
+
+lazyAdd("nan", "alsonan").then(resolvedCallback, rejectedC
